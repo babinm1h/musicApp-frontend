@@ -10,7 +10,7 @@ export const fetchTracks = createAsyncThunk(TracksActionTypes.fetch_tracks,
             const data = await TracksService.fetchTracks()
             return data
 
-        } catch (err) {
-            return thunk.rejectWithValue(err)
+        } catch (err: any) {
+            return thunk.rejectWithValue(err.response?.data.message)
         }
     })

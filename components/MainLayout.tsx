@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import React, { FC } from 'react';
+import Sidebar from './Sidebar';
 
 interface IMainLayoutProps {
     children: React.ReactNode
@@ -17,7 +18,10 @@ const MainLayout: FC<IMainLayoutProps> = ({ children }) => {
             </Head>
 
             <main className="w-full flex-grow flex flex-col h-screen overflow-hidden">
-                {children}
+                <div className="flex overflow-hidden flex-grow">
+                    <Sidebar />
+                    {children}
+                </div>
             </main>
         </>
     );

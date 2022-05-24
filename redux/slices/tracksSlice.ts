@@ -5,7 +5,8 @@ import { fetchTracks } from "../thunks/tracks";
 const initialState: ITracksState = {
     isLoading: true,
     tracks: [],
-    totalCount: 0
+    totalCount: 0,
+    error: ""
 }
 
 
@@ -18,12 +19,14 @@ const tracksSlice = createSlice({
             state.tracks = action.payload.tracks
             state.totalCount = action.payload.totalCount
             state.isLoading = false
+            state.error = ""
         },
-        [fetchTracks.fulfilled.type]: (state, action) => {
+        [fetchTracks.pending.type]: (state) => {
             state.isLoading = true
         },
-        [fetchTracks.fulfilled.type]: (state, action) => {
+        [fetchTracks.rejected.type]: (state, action: PayloadAction<string>) => {
             state.isLoading = false
+            state.error = action.payload
         },
     }
 })

@@ -6,7 +6,7 @@ import tracksSlice from "./slices/tracksSlice";
 
 const rootReducer = combineReducers({
     tracks: tracksSlice,
-    player: playerSlice
+    player: playerSlice,
 })
 
 

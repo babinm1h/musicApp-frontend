@@ -1,9 +1,10 @@
-import { ITrack } from "./models";
+import { ITrack } from "./DBmodels";
 
 
 export interface ITracksState {
     isLoading: boolean
     tracks: ITrack[]
+    error: string
     totalCount: number
 }
 

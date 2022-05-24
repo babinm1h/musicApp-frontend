@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { ITrack } from "../../types/models";
+import { ITrack } from "../../types/DBmodels";
 import { IPlayerState } from "../../types/player";
 
 
@@ -7,8 +7,8 @@ const initialState: IPlayerState = {
     active: null,
     currentTime: 0,
     duration: 0,
-    pause: false,
-    volume: 50
+    pause: true,
+    volume: 5
 }
 
 
@@ -16,8 +16,11 @@ const playerSlice = createSlice({
     name: "player",
     initialState,
     reducers: {
-        setPause(state, action: PayloadAction<boolean>) {
-            state.pause = action.payload
+        setPause(state) {
+            state.pause = true
+        },
+        setPlay(state) {
+            state.pause = false
         },
 
         setVolume(state, action: PayloadAction<number>) {
@@ -44,4 +47,11 @@ const playerSlice = createSlice({
 
 export default playerSlice.reducer;
 
-export const { setActive, setCurrentTime, setDuration, setPause, setVolume } = playerSlice.actions;
+export const {
+    setActive,
+    setCurrentTime,
+    setDuration, setVolume,
+    setPause,
+    setPlay
+}
+    = playerSlice.actions;

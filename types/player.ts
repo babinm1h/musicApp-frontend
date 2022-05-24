@@ -1,4 +1,4 @@
-import { ITrack } from "./models";
+import { ITrack } from "./DBmodels";
 
 
 export interface IPlayerState {
