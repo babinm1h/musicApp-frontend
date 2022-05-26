@@ -7,6 +7,9 @@ module.exports = {
     extend: {
       colors: {
         "primaryGreen": "rgb(30, 215, 96)"
+      },
+      screens: {
+        "xs": "480px"
       }
     },
   },

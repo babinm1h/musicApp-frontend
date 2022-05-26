@@ -2,15 +2,22 @@ import { ITrack } from "./DBmodels";
 
 
 export interface ITracksState {
-    isLoading: boolean
+    isSearching: boolean
     tracks: ITrack[]
     error: string
     totalCount: number
+    searchedTracks: ITrack[],
+    page: number,
+    uploadError: string,
+    isUploading: boolean
+    isFetching: boolean
 }
 
 
 export enum TracksActionTypes {
-    fetch_tracks = 'tracks/fetch_tracks'
+    fetch_tracks = 'tracks/fetch_tracks',
+    search = 'tracks/search',
+    upload = "tracks/upload"
 }
 
 

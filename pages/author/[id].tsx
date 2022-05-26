@@ -23,8 +23,8 @@ const Author: FC<IAuthorProps> = ({ serverAuthor }) => {
             <div className="flex flex-col flex-grow">
                 <section className="h-[300px] bg-gradient-to-b from-green-700 to-black p-5">
                     <Header />
-                    <div className="mt-2 text-white flex items-center gap-5">
-                        <div className="w-[140px] h-[140px] relative">
+                    <div className="mt-3 text-white flex items-center gap-5">
+                        <div className="relative h-[100px] w-[100px] sm:h-[130px] sm:w-[130px]">
                             <Image src={author.img} layout="fill" objectFit="cover"
                                 alt="author" priority />
                         </div>
@@ -35,7 +35,7 @@ const Author: FC<IAuthorProps> = ({ serverAuthor }) => {
                 </section>
 
                 <section className="">
-                    <ul className="">
+                    <ul className="flex flex-col px-5">
                         {author && author.tracks.map(t => <Track item={t} key={t._id} />)}
                     </ul>
                 </section>
@@ -45,6 +45,8 @@ const Author: FC<IAuthorProps> = ({ serverAuthor }) => {
 };
 
 export default Author;
+
+
 
 
 export const getServerSideProps = async ({ params }: any) => {

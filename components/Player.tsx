@@ -26,6 +26,8 @@ const Player: FC<IPlayerProps> = ({ audio, onTogglePause, handleCurrentTime }) =
         if (audio) {
             audio.volume = volume / 100
         }
+        console.log(e.target.value, volume);
+
     }
 
 
@@ -34,14 +36,14 @@ const Player: FC<IPlayerProps> = ({ audio, onTogglePause, handleCurrentTime }) =
     }
 
     return (
-        <div className="text-white h-24 bg-gradient-to-b from-black to-gray-900 px-10 justify-center grid grid-cols-3 items-center absolute bottom-0 left-0 w-full right-0">
+        <div className="text-white h-24 bg-gradient-to-b from-black to-gray-900 px-2 xs:px-10 xs:justify-center xs:grid xs:grid-cols-3 items-center absolute bottom-0 left-0 w-full right-0 flex justify-between">
             <div className="flex items-center gap-5">
                 <div className="w-12 h-12 relative">
                     <Image src={SERVER_URL + "/" + active.img} alt="pic"
                         layout="fill" objectFit="cover" />
                 </div>
 
-                <div className="">
+                <div className="hidden xs:block">
                     <h3 className="font-bold">{active.name}</h3>
                     <span className="">{active.author.name}</span>
                 </div>
@@ -58,8 +60,8 @@ const Player: FC<IPlayerProps> = ({ audio, onTogglePause, handleCurrentTime }) =
 
             <div className="flex items-center gap-3 justify-end">
                 <VolumeOffIcon className="h-7 w-7" />
-                <input type="range" max={100} min={0} value={volume}
-                    onChange={handleVolume} />
+                <input type="range" max={100} min={1} value={volume}
+                    onChange={handleVolume} step={5} />
                 <span className="w-10">{volume}</span>
             </div>
         </div>

@@ -1,20 +1,64 @@
-import { MenuAlt2Icon, ChevronDownIcon } from '@heroicons/react/outline';
+import { MenuAlt2Icon, ChevronDownIcon, LogoutIcon } from '@heroicons/react/outline';
 import Image from 'next/image';
-import React from 'react';
+import { useRouter } from 'next/router';
+import React, { useState } from 'react';
+import Drawer from './Drawer';
 
 const Header = () => {
-    return (
-        <header className="flex justify-between sm:justify-end items-center">
-            <MenuAlt2Icon className="w-10 h-10 text-white sm:hidden" />
+    const router = useRouter()
+    const [open, setOpen] = useState<boolean>(false)
+    const [dropdown, setDropdown] = useState<boolean>(false)
 
-            <div className="inline-flex items-center gap-3 bg-black bg-opacity-60 py-1 px-3 rounded-full justify-end cursor-pointer text-white" >
-                <div className="h-10 w-10 relative rounded-[50%]">
-                    <Image src="https://dpclinic.ru/upload/iblock/6ce/6ce2d48158f804ec94c075513884abcf.jpg" alt="user" className="rounded-[50%]" layout="fill" />
-                </div>
-                <p className="font-bold">username user</p>
-                <ChevronDownIcon className="h-5 w-5" />
-            </div>
-        </header>
+    const onOpen = () => {
+        setOpen(true)
+    }
+
+    const onClose = () => {
+        setOpen(false)
+    }
+
+    const toggleDropdown = () => {
+        setDropdown(!dropdown)
+    }
+
+    const goToLogin = () => {
+        router.push("/login")
+    }
+
+    return (
+        <>
+            <header className="flex justify-between sm:justify-end items-center">
+                <button className="" onClick={onOpen}>
+                    <MenuAlt2Icon className="w-10 h-10 text-white sm:hidden" />
+                </button>
+
+                {false
+                    ? <div className="relative inline-flex items-center gap-3 bg-black bg-opacity-60 py-1 px-3 rounded-xl justify-end text-white">
+                        <div className="h-10 w-10 relative rounded-[50%]">
+                            <Image src="https://dpclinic.ru/upload/iblock/6ce/6ce2d48158f804ec94c075513884abcf.jpg" alt="user" className="rounded-[50%]" layout="fill" />
+                        </div>
+                        <span className="font-bold">username user</span>
+                        <button onClick={toggleDropdown} >
+                            <ChevronDownIcon className={`h-6 w-6 ${dropdown && "rotate-180"} transition-all`} />
+                        </button>
+
+                        {dropdown && <div className="rounded-xl absolute bg-black origin-top-right top-14 right-0 w-full">
+                            <ul className="flex flex-col">
+                                <li className="hover:text-white transition-colors text-gray-300 p-3 flex items-center gap-2">
+                                    <LogoutIcon className="w-5 h-5" /> Logout
+                                </li>
+                            </ul>
+                        </div>}
+                    </div>
+
+                    : <button onClick={goToLogin}
+                        className="text-white bg-primaryGreen px-10 h-[30px] text-lg rounded-full hover:bg-green-600 transition-colors">
+                        Login
+                    </button>}
+            </header>
+
+            <Drawer onClose={onClose} isOpen={open} />
+        </>
     );
 };
 

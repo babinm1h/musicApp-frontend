@@ -7,6 +7,11 @@ import { useAppSelector } from '../hooks/useAppSelector';
 import { SERVER_URL } from '../API';
 import { useRouter } from 'next/router';
 import Header from './Header';
+import { useDispatch } from 'react-redux';
+import { setPage } from '../redux/slices/tracksSlice';
+import { fetchTracks } from '../redux/thunks/tracks';
+import Pagination from './Pagination';
+import Loader from './Loader';
 
 
 const colors = [
@@ -20,8 +25,10 @@ const colors = [
 ]
 
 const HomeContent = () => {
+    const dispatch = useDispatch()
+
     const [bgcolor, setBgcolor] = useState<string | null>(null)
-    const { tracks, totalCount } = useAppSelector(state => state.tracks)
+    const { tracks, page, isFetching } = useAppSelector(state => state.tracks)
     const { active } = useAppSelector(state => state.player)
 
     const router = useRouter()
@@ -34,27 +41,30 @@ const HomeContent = () => {
         setBgcolor(shuffle(colors).pop()!)
     }, [])
 
-
+    useEffect(() => {
+        dispatch(fetchTracks(page) as any)
+    }, [page])
 
 
     return (
         <>
-            <div className="flex-grow text-white flex flex-col h-screen overflow-hidden">
+            <div className="flex-grow text-white flex flex-col h-screen">
 
                 <section className={`w-full bg-gradient-to-b to-black ${bgcolor} h-[400px] sm:p-5 p-2`}>
-                    <Header/>
+                    <Header />
 
                     {active && <div className="mt-5 flex items-center gap-5">
-                        <div className="h-[130px] w-[130px] border border-white relative">
+                        <div className="h-[100px] w-[100px] sm:h-[130px] sm:w-[130px] border border-white relative bg-black">
                             <Image src={SERVER_URL + "/" + active.img} objectFit="cover"
                                 layout="fill" alt="activeTrack" />
                         </div>
 
-                        <div className="flex flex-col">
+                        <div className="">
                             <h1 className="font-bold text-3xl">
                                 {active.name}
                             </h1>
-                            <h2 className="text-lg text-primaryGreen" onClick={onAuthorClick}>
+                            <h2 className="text-lg text-primaryGreen cursor-pointer hover:underline inline-block"
+                                onClick={onAuthorClick}>
                                 {active.author.name}
                             </h2>
                         </div>
@@ -62,12 +72,15 @@ const HomeContent = () => {
                 </section>
 
 
-                <section className="h-full p-5 overflow-y-scroll scrollbar-hide">
-                    <ul className="flex flex-col">
-                        {tracks.length > 0
-                            ? tracks.map(t => <Track key={t._id} item={t} />)
-                            : ""}
+                <section className="h-full p-5 flex flex-col overflow-hidden overflow-y-scroll scrollbar-hide">
+                    <ul className="flex flex-col flex-grow ">
+
+                        {isFetching
+                            ? <Loader />
+                            : tracks.map(t => <Track key={t._id} item={t} />)}
+
                     </ul>
+                    <Pagination />
                 </section>
             </div>
         </>

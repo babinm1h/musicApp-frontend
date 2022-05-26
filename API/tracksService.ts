@@ -7,11 +7,18 @@ import { IFetchTracksResponse } from "../types/tracks";
 
 export class TracksService {
 
-    static async fetchTracks(): Promise<IFetchTracksResponse> {
-        const { data } = await $instance.get('/tracks', { params: { limit: 10, page: 1 } })
-        console.log(777);
+    static async fetchTracks(page: number): Promise<IFetchTracksResponse> {
+        const { data } = await $instance.get('/tracks', { params: { limit: 5, page } })
         return data
     }
 
+    static async searchTracks(query: String): Promise<ITrack[]> {
+        const { data } = await $instance.get("/tracks/search", { params: { query } })
+        return data
+    }
 
+    static async uploadTrack(formData: FormData) {
+        const { data } = await $instance.post("/tracks", formData)
+        return data
+    }
 }
