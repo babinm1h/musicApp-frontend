@@ -15,7 +15,7 @@ import Loader from './Loader';
 
 
 const colors = [
-    "from-primaryGreen",
+    "from-green-900",
     "from-red-500",
     "from-yellow-600",
     "from-purple-500",

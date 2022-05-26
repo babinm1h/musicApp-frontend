@@ -15,7 +15,7 @@ interface IPlayerProps {
     handleCurrentTime: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 
-const Player: FC<IPlayerProps> = ({ audio, onTogglePause, handleCurrentTime }) => {
+const Player: FC<IPlayerProps> = ({ audio, onTogglePause, }) => {
     const dispatch = useDispatch()
     const { pause, active, currentTime, duration, volume } = useAppSelector(state => state.player)
 
@@ -24,10 +24,8 @@ const Player: FC<IPlayerProps> = ({ audio, onTogglePause, handleCurrentTime }) =
     const handleVolume = (e: React.ChangeEvent<HTMLInputElement>) => {
         dispatch(setVolume(+e.target.value))
         if (audio) {
-            audio.volume = volume / 100
+            audio.volume = +e.target.value / 100
         }
-        console.log(e.target.value, volume);
-
     }
 
 
@@ -60,8 +58,8 @@ const Player: FC<IPlayerProps> = ({ audio, onTogglePause, handleCurrentTime }) =
 
             <div className="flex items-center gap-3 justify-end">
                 <VolumeOffIcon className="h-7 w-7" />
-                <input type="range" max={100} min={1} value={volume}
-                    onChange={handleVolume} step={5} />
+                <input type="range" max={100} min={0} value={volume}
+                    onChange={handleVolume} step={2} />
                 <span className="w-10">{volume}</span>
             </div>
         </div>

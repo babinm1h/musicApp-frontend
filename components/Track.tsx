@@ -18,7 +18,7 @@ let audio: HTMLAudioElement;
 
 const Track: FC<ITrackProps> = ({ item }) => {
     const router = useRouter()
-    const { active, pause, volume, currentTime, duration } = useAppSelector(state => state.player)
+    const { active, pause, volume, duration } = useAppSelector(state => state.player)
     const dispatch = useDispatch()
 
     const play = () => {
@@ -45,6 +45,10 @@ const Track: FC<ITrackProps> = ({ item }) => {
         router.push(`/author/${item.author._id}`)
     }
 
+    
+    const goToTrack = () => {
+        router.push(`/tracks/${item._id}`)
+    }
 
     const handleCurrentTime = (e: React.ChangeEvent<HTMLInputElement>) => {
         dispatch(setCurrentTime(+e.target.value))
@@ -92,7 +96,7 @@ const Track: FC<ITrackProps> = ({ item }) => {
 
 
                 <div className="flex gap-3 flex-grow">
-                    <div className="w-12 h-12 relative">
+                    <div className="w-12 h-12 relative cursor-pointer" onClick={goToTrack}>
                         <Image src={SERVER_URL + "/" + item.img} alt="pic"
                             layout="fill" objectFit="cover" />
                     </div>

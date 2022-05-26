@@ -17,8 +17,14 @@ export class TracksService {
         return data
     }
 
-    static async uploadTrack(formData: FormData) {
+    static async uploadTrack(formData: FormData): Promise<ITrack> {
         const { data } = await $instance.post("/tracks", formData)
+        return data
+    }
+
+
+    static async fetchOne(id: string): Promise<ITrack> {
+        const { data } = await $instance.get(`/tracks/get/${id}`)
         return data
     }
 }

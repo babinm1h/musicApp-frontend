@@ -1,12 +1,16 @@
 import { combineReducers, AnyAction, configureStore, Store } from "@reduxjs/toolkit";
 import { createWrapper, HYDRATE, MakeStore } from "next-redux-wrapper"
+import authSlice from "./slices/authSlice";
 import playerSlice from "./slices/playerSlice";
+import trackPageSlice from "./slices/trackPageSlice";
 import tracksSlice from "./slices/tracksSlice";
 
 
 const rootReducer = combineReducers({
     tracks: tracksSlice,
     player: playerSlice,
+    auth: authSlice,
+    trackPage: trackPageSlice
 })
 
 

@@ -32,7 +32,7 @@ const UploadForm: FC<IUploadFormProps> = ({ authors }) => {
 
     const handleImg = (e: React.ChangeEvent<HTMLInputElement>) => {
         const reader = new FileReader()
-        if (e.target.files) {
+        if (e.target.files && e.target.files[0]) {
             setImgFile(e.target.files[0])
             reader.readAsDataURL(e.target.files[0])
         }
@@ -61,6 +61,7 @@ const UploadForm: FC<IUploadFormProps> = ({ authors }) => {
         setImgFile(null)
         setPreview(null)
         setAudio(null)
+        reset()
     }
 
     return (
@@ -92,7 +93,7 @@ const UploadForm: FC<IUploadFormProps> = ({ authors }) => {
 
                 <FormControl register={register("name", validate(1, 50))} error={errors.name}
                     id="name" label="Track name" type="text" />
-                <FormControl register={register("text", validate(1, 50))} error={errors.name}
+                <FormControl register={register("text", validate(1, 500))} error={errors.text}
                     id="text" label="Track text" type="text" />
 
                 <select id="author"{...register("author", validate(1, 50))}
