@@ -1,7 +1,9 @@
 import Link from 'next/link';
-import React from 'react';
+import { useRouter } from 'next/router';
+import React, { useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
+import { useAppSelector } from '../../hooks/useAppSelector';
 import { loginThunk } from '../../redux/thunks/auth';
 import { validate } from '../../utils/validate';
 import FormControl from '../FormControl';
@@ -14,12 +16,22 @@ interface IFormFields {
 
 
 const LoginForm = () => {
+    const router = useRouter()
+    const { loginError, isSubmitting, user } = useAppSelector(state => state.auth)
+
     const dispatch = useDispatch()
-    const { register, reset, handleSubmit, formState: { errors } } = useForm<IFormFields>()
+    const { register, handleSubmit, formState: { errors } } = useForm<IFormFields>()
 
     const onSubmit: SubmitHandler<IFormFields> = ({ email, password }) => {
         dispatch(loginThunk({ email, password }) as any)
     }
+
+
+    useEffect(() => {
+        if (user) {
+            router.push('/tracks')
+        }
+    }, [user])
 
     return (
         <>
@@ -30,9 +42,11 @@ const LoginForm = () => {
                 <FormControl register={register("password", validate(6, 50))} id="password"
                     label="Your password" error={errors.password} type="password" />
 
-                <button className="bg-primaryGreen hover:bg-green-600 transition-colors px-10 font-bold h-[35px] rounded-lg text-lg">
+                <button className="bg-primaryGreen hover:bg-green-600 transition-colors px-10 font-bold h-[35px] rounded-lg text-lg" disabled={isSubmitting}>
                     Login
                 </button>
+
+                {loginError && <div className="text-red-700 mt-2">{loginError}</div>}
             </form>
 
             <p className="mt-3">Dont have an account? <Link href="/registration">

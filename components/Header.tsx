@@ -40,7 +40,7 @@ const Header = () => {
                         <div className="h-10 w-10 relative rounded-[50%]">
                             <Image src="https://dpclinic.ru/upload/iblock/6ce/6ce2d48158f804ec94c075513884abcf.jpg" alt="user" className="rounded-[50%]" layout="fill" />
                         </div>
-                        <span className="font-bold">username user</span>
+                        <span className="font-bold">{user.email}</span>
                         <button onClick={toggleDropdown} >
                             <ChevronDownIcon className={`h-6 w-6 ${dropdown && "rotate-180"} transition-all`} />
                         </button>

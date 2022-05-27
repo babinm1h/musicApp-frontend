@@ -2,6 +2,7 @@ import { GetStaticProps } from 'next';
 import React, { FC, useState } from 'react';
 import { AuthorService } from '../../API/authorService';
 import UploadForm from '../../components/Forms/UploadForm';
+import Header from '../../components/Header';
 import MainLayout from '../../components/MainLayout';
 import { IAuthor } from '../../types/DBmodels';
 
@@ -15,8 +16,11 @@ const UploadTrack: FC<IUploadTrackProps> = ({ authors }) => {
 
     return (
         <MainLayout>
-            <div className="text-white p-5 bg-gradient-to-b from-green-900 via-black to-black w-full h-full">
-                <UploadForm authors={authors} />
+            <div className="flex flex-col bg-gradient-to-b bg-orange-400 from-green-900 via-black to-black w-full h-full p-5">
+                <Header />
+                <div className="text-white p-5">
+                    <UploadForm authors={authors} />
+                </div>
             </div>
         </MainLayout>
     );

@@ -13,3 +13,27 @@ export const loginThunk = createAsyncThunk(AuthActionTypes.login,
             return thunk.rejectWithValue(err.response?.data.message)
         }
     })
+
+
+export const registerThunk = createAsyncThunk(AuthActionTypes.register,
+    async (payload: { email: string, password: string }, thunk) => {
+        try {
+            const data = await AuthService.register(payload.email, payload.password)
+            return data
+
+        } catch (err: any) {
+            return thunk.rejectWithValue(err.response?.data.message)
+        }
+    })
+
+
+export const getMeThunk = createAsyncThunk(AuthActionTypes.get_me,
+    async (token: string, thunk) => {
+        try {
+            const data = await AuthService.getMe(token)
+            return data
+
+        } catch (err: any) {
+            return thunk.rejectWithValue(err.response?.data.message)
+        }
+    })

@@ -24,7 +24,7 @@ export class TracksService {
 
 
     static async fetchOne(id: string): Promise<ITrack> {
-        const { data } = await $instance.get(`/tracks/get/${id}`)
+        const { data } = await $instance.get(`/tracks/${id}`)
         return data
     }
 }
