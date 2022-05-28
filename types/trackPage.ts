@@ -3,6 +3,7 @@ import { ITrack } from "./DBmodels";
 export interface ITrackPageState {
     error: string
     track: null | ITrack
+    isAdding: boolean
 }
 
 

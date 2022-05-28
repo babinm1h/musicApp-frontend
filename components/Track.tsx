@@ -45,7 +45,7 @@ const Track: FC<ITrackProps> = ({ item }) => {
         router.push(`/author/${item.author._id}`)
     }
 
-    
+
     const goToTrack = () => {
         router.push(`/tracks/${item._id}`)
     }
@@ -76,7 +76,7 @@ const Track: FC<ITrackProps> = ({ item }) => {
 
     const leave = () => {
         dispatch(setActive(null))
-        audio.pause()
+        audio ? audio.pause() : null
     }
 
     Router.events.on("beforeHistoryChange", leave)

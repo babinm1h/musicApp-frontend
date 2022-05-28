@@ -16,7 +16,11 @@ const initialState: IAuthState = {
 const authSlice = createSlice({
     initialState,
     name: "auth",
-    reducers: {},
+    reducers: {
+        logout(state) {
+            state.user = null
+        }
+    },
     extraReducers: {
         [loginThunk.fulfilled.type]: (state, action: PayloadAction<IAuthResponse>) => {
             state.user = action.payload.data
@@ -62,3 +66,4 @@ const authSlice = createSlice({
 
 
 export default authSlice.reducer;
+export const { logout } = authSlice.actions;

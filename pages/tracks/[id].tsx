@@ -1,10 +1,10 @@
 import { GetServerSideProps } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { SERVER_URL } from '../../API';
+import Comment from '../../components/Comment';
 import CommentForm from '../../components/Forms/CommentForm';
 import Header from '../../components/Header';
 import MainLayout from '../../components/MainLayout';
@@ -14,9 +14,8 @@ import { fetchOneTrack } from '../../redux/thunks/trackPage';
 
 
 const TrackPage = () => {
-    const dispatch = useDispatch()
     const { track } = useAppSelector(state => state.trackPage)
-
+    const { user } = useAppSelector(state => state.auth)
 
     return (
         <MainLayout>
@@ -45,7 +44,12 @@ const TrackPage = () => {
                         <p className="text-[16px]">{track?.text}</p>
                     </div>
 
-                    <CommentForm />
+                    {user && <CommentForm trackId={track!._id} />}
+
+                    <ul className="flex flex-col gap-7 mt-10">
+                        {track && track?.comments.length > 0 && track?.comments.map(c => <Comment
+                            key={c._id} item={c} />)}
+                    </ul>
 
                 </div>
             </div>

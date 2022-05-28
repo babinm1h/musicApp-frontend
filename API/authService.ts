@@ -1,4 +1,4 @@
-import { $instance } from ".";
+import { $authInstance, $instance } from ".";
 import { IAuthResponse } from "../types/auth";
 import { setCookie, destroyCookie } from 'nookies'
 import { IUser } from "../types/DBmodels";
@@ -23,18 +23,18 @@ export class AuthService {
             maxAge: 30 * 24 * 60 * 60,
             path: "/"
         })
+
         return data
     }
 
 
     static async getMe(token: string): Promise<IUser> {
-        const { data } = await $instance.get<IUser>("/auth/get-me", {
+        const { data } = await $authInstance.get<IUser>("/auth/get-me", {
             headers: {
                 Authorization: `Bearer ${token}`
             }
         })
-        console.log(data);
-
+        
         return data
     }
 }

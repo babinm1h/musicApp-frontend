@@ -6,3 +6,9 @@ export const getDuration = (sec: number) => {
     const formated = duration.format("hh:mm:ss")
     return formated
 }
+
+
+
+export const getDate = (timestamp: string) => {
+    return moment(timestamp).startOf("seconds").fromNow()
+}

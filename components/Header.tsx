@@ -1,12 +1,16 @@
 import { MenuAlt2Icon, ChevronDownIcon, LogoutIcon } from '@heroicons/react/outline';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+import { destroyCookie, parseCookies } from 'nookies';
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useAppSelector } from '../hooks/useAppSelector';
+import { logout } from '../redux/slices/authSlice';
 import Drawer from './Drawer';
 
 const Header = () => {
     const { user } = useAppSelector(state => state.auth)
+    const dispatch = useDispatch()
 
     const router = useRouter()
     const [open, setOpen] = useState<boolean>(false)
@@ -28,6 +32,12 @@ const Header = () => {
         router.push("/login")
     }
 
+
+    const handleLogout = () => {
+        destroyCookie(null, "musicToken")
+        dispatch(logout())
+    }
+
     return (
         <>
             <header className="flex justify-between sm:justify-end items-center">
@@ -47,7 +57,7 @@ const Header = () => {
 
                         {dropdown && <div className="rounded-xl absolute bg-black origin-top-right top-14 right-0 w-full">
                             <ul className="flex flex-col">
-                                <li className="hover:text-white transition-colors text-gray-300 p-3 flex items-center gap-2">
+                                <li className="hover:text-white transition-colors text-gray-300 p-3 flex items-center gap-2 cursor-pointer" onClick={handleLogout}>
                                     <LogoutIcon className="w-5 h-5" /> Logout
                                 </li>
                             </ul>

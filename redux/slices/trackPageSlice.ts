@@ -1,13 +1,14 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
-import { ITrack } from "../../types/DBmodels"
+import { IComment, ITrack } from "../../types/DBmodels"
 import { ITrackPageState } from "../../types/trackPage"
-import { fetchOneTrack } from "../thunks/trackPage"
+import { createComment, fetchOneTrack } from "../thunks/trackPage"
 
 
 
 const initialState: ITrackPageState = {
     track: null,
-    error: ""
+    error: "",
+    isAdding: false
 }
 
 
@@ -22,7 +23,22 @@ const trackPageSlice = createSlice({
         },
         [fetchOneTrack.rejected.type]: (state, action: PayloadAction<string>) => {
             state.error = action.payload
-        }
+        },
+
+
+
+        [createComment.fulfilled.type]: (state, action: PayloadAction<IComment>) => {
+            state.track?.comments.push(action.payload)
+            state.isAdding = false
+            state.error = ""
+        },
+        [createComment.pending.type]: (state, action) => {
+            state.isAdding = true
+        },
+        [createComment.rejected.type]: (state, action) => {
+            state.isAdding = false
+            state.error = action.payload
+        },
     }
 })
 

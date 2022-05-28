@@ -18,7 +18,7 @@ export enum TracksActionTypes {
     fetch_tracks = 'tracks/fetch_tracks',
     search = 'tracks/search',
     upload = "tracks/upload",
-    fetchOne = "tracks/fetch_one"
+    fetchOne = "tracks/fetch_one",
 }
 
 
