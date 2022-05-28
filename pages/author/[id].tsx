@@ -19,7 +19,7 @@ const Author: FC<IAuthorProps> = ({ serverAuthor }) => {
 
 
     return (
-        <MainLayout>
+        <MainLayout title={author.name}>
             <div className="flex flex-col flex-grow">
                 <section className="h-[300px] bg-gradient-to-b from-green-700 to-black p-5">
                     <Header />

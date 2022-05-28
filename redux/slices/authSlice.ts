@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IAuthResponse, IAuthState } from "../../types/auth";
-import { IUser } from "../../types/DBmodels";
-import { getMeThunk, loginThunk, registerThunk } from "../thunks/auth";
+import { ITrack, IUser } from "../../types/DBmodels";
+import { addToPlaylist, getMeThunk, loginThunk, registerThunk } from "../thunks/auth";
 
 
 const initialState: IAuthState = {
@@ -9,7 +9,8 @@ const initialState: IAuthState = {
     isInitializing: true,
     loginError: "",
     registerError: "",
-    isSubmitting: false
+    isSubmitting: false,
+    isAdding: false
 }
 
 
@@ -60,6 +61,18 @@ const authSlice = createSlice({
         [getMeThunk.rejected.type]: (state, action) => {
             state.registerError = action.payload
             state.isInitializing = false
+        },
+
+
+        [addToPlaylist.fulfilled.type]: (state, action: PayloadAction<ITrack>) => {
+            state.user?.playlist.push(action.payload)
+            state.isAdding = false
+        },
+        [addToPlaylist.pending.type]: (state, action) => {
+            state.isAdding = true
+        },
+        [addToPlaylist.rejected.type]: (state, action) => {
+            state.isAdding = false
         },
     }
 })

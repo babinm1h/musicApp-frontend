@@ -1,4 +1,4 @@
-import { $instance } from ".";
+import { $authInstance, $instance } from ".";
 import { ITrack } from "../types/DBmodels";
 import { IFetchTracksResponse } from "../types/tracks";
 
@@ -24,7 +24,13 @@ export class TracksService {
 
 
     static async fetchOne(id: string): Promise<ITrack> {
-        const { data } = await $instance.get(`/tracks/${id}`)
+        const { data } = await $instance.get(`/tracks/track/${id}`)
+        return data
+    }
+
+
+    static async addToPlaylist(trackId: string): Promise<ITrack> {
+        const { data } = await $authInstance.post('/tracks/playlist', { trackId })
         return data
     }
 }

@@ -15,7 +15,7 @@ interface IUploadTrackProps {
 const UploadTrack: FC<IUploadTrackProps> = ({ authors }) => {
 
     return (
-        <MainLayout>
+        <MainLayout title="Upload Track">
             <div className="flex flex-col bg-gradient-to-b bg-orange-400 from-green-900 via-black to-black w-full h-full p-5">
                 <Header />
                 <div className="text-white p-5">

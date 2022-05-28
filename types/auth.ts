@@ -1,4 +1,4 @@
-import { IUser } from "./DBmodels";
+import { ITrack, IUser } from "./DBmodels";
 
 
 
@@ -8,13 +8,15 @@ export interface IAuthState {
     loginError: string
     registerError: string
     isSubmitting: boolean
+    isAdding: boolean
 }
 
 
 export enum AuthActionTypes {
     login = 'auth/login',
     get_me = "auth/get_me",
-    register = 'auth/register'
+    register = 'auth/register',
+    add_to_playlist = 'auth/add_to_playlist'
 }
 
 

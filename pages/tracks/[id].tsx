@@ -18,7 +18,7 @@ const TrackPage = () => {
     const { user } = useAppSelector(state => state.auth)
 
     return (
-        <MainLayout>
+        <MainLayout title={track?.name}>
             <div className="flex flex-col w-full h-full bg-gradient-to-b from-yellow-700 to-black via-black p-5">
                 <Header />
                 <div className="flex flex-col w-full h-full text-white mt-5">
@@ -44,7 +44,7 @@ const TrackPage = () => {
                         <p className="text-[16px]">{track?.text}</p>
                     </div>
 
-                    {user && <CommentForm trackId={track!._id} />}
+                    {user && <CommentForm />}
 
                     <ul className="flex flex-col gap-7 mt-10">
                         {track && track?.comments.length > 0 && track?.comments.map(c => <Comment

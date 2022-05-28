@@ -25,7 +25,7 @@ const Search = () => {
     }
 
     return (
-        <MainLayout>
+        <MainLayout title="Search Tracks">
 
             <div className="p-5 flex flex-col flex-grow bg-gradient-to-b from-purple-900 via-gray-900 to-black">
                 <Header />

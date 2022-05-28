@@ -9,7 +9,7 @@ import { GetServerSideProps } from 'next';
 
 const index = () => {
   return (
-    <MainLayout>
+    <MainLayout title="Tracks">
       <HomeContent />
     </MainLayout>
   );

@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
+import { useAppSelector } from '../../hooks/useAppSelector';
 import { createComment } from '../../redux/thunks/trackPage';
 import { validate } from '../../utils/validate';
 
@@ -8,17 +9,15 @@ interface IFormFields {
     text: string
 }
 
-interface ICommentFormProps {
-    trackId: string
-}
 
-const CommentForm: FC<ICommentFormProps> = ({ trackId }) => {
+const CommentForm = ({ }) => {
     const dispatch = useDispatch()
+    const { track } = useAppSelector(state => state.trackPage)
 
     const { reset, register, handleSubmit, formState: { errors } } = useForm<IFormFields>()
 
     const onSubmit: SubmitHandler<IFormFields> = ({ text }) => {
-        dispatch(createComment({ text, trackId }) as any)
+        dispatch(createComment({ text, trackId: track!._id }) as any)
         reset()
     }
 

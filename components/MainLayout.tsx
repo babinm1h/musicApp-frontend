@@ -4,13 +4,14 @@ import Sidebar from './Sidebar';
 
 interface IMainLayoutProps {
     children: React.ReactNode
+    title?: string
 }
 
-const MainLayout: FC<IMainLayoutProps> = ({ children }) => {
+const MainLayout: FC<IMainLayoutProps> = ({ children, title }) => {
     return (
         <>
             <Head>
-                <title>App</title>
+                <title>{title || "Music App"}</title>
                 <meta name="description" content={`Music app. Everyone can listen and upload music!`} />
                 <meta name="robots" content="index, follow" />
                 <meta name="keywords"

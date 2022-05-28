@@ -81,7 +81,6 @@ const Track: FC<ITrackProps> = ({ item }) => {
 
     Router.events.on("beforeHistoryChange", leave)
 
-
     return (
         <>
             <li className="flex hover:bg-gray-900 p-4 rounded-lg items-center transition-all cursor-auto gap-3 text-white">
@@ -110,6 +109,7 @@ const Track: FC<ITrackProps> = ({ item }) => {
                         </button>
                     </div>
                 </div>
+
 
                 {active && item._id === active?._id && <div className="text-gray-400">
                     {getDuration(duration)}
